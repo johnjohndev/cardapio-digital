@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Restaurante Panela Caseira – Cardápio</title>
+  <meta name="theme-color" content="#191919">
+  <link rel="icon" href="images/logo/favicon.png">
+
+  <!-- Fontes do Google (Bitter para títulos, Nunito Sans para textos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos (a ordem importa) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/item.css">
+  <link rel="stylesheet" href="css/overlays.css">
+</head>
+<body>
+
+  <!-- 1. TELA DE ESCOLHA DE IDIOMA (aparece ao abrir o cardápio) -->
+  <div class="splash" id="splash" role="dialog" aria-modal="true">
+    <img class="logo-img splash__logo" src="images/logo/logo.png" alt="Restaurante Panela Caseira">
+    <div class="splash__ask"><b>Escolha o idioma</b>Choose your language<br>Elige tu idioma</div>
+    <div class="splash__langs">
+      <button data-lang="pt">Português</button>
+      <button data-lang="en">English</button>
+      <button data-lang="es">Español</button>
+    </div>
+  </div>
+
+  <!-- 2. LOGO GRANDE: primeira coisa que a pessoa vê ao abrir o cardápio -->
+  <header class="brand" id="top">
+    <img class="logo-img brand__logo" src="images/logo/logo.png" alt="Restaurante Panela Caseira">
+  </header>
+
+  <!-- 3. BARRA FIXA: busca e idioma (a logo pequena aparece ao rolar; clicar nela volta ao início) -->
+  <div class="bar" id="bar">
+    <div class="bar__in wrap">
+      <a class="bar__logo" href="#top" data-top>
+        <img class="logo-img" src="images/logo/logo-header.png" alt="Restaurante Panela Caseira">
+      </a>
+
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="search" type="search" autocomplete="off" data-i18n-placeholder="searchPlaceholder">
+      </label>
+
+      <div class="lang">
+        <button class="lang__btn" id="lang-btn" aria-haspopup="true" aria-expanded="false">
+          <span id="lang-current">PT</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang__menu" id="lang-menu" hidden>
+          <button data-lang="pt">Português</button>
+          <button data-lang="en">English</button>
+          <button data-lang="es">Español</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. DESTAQUES (carrossel) – montado por js/render.js -->
+<div class="hl-wrap">
+    <button class="hl__arrow hl__arrow--prev" id="hl-prev" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <section class="hl" id="highlights" aria-label="Destaques"></section>
+    <button class="hl__arrow hl__arrow--next" id="hl-next" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <div class="hl__dots" id="hl-dots"></div>
+  </div>
+
+  <!-- 5. CONTATO: WhatsApp, endereço e Instagram -->
+  <section class="info" id="info">
+    <a class="contact" id="whatsapp" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span><b data-i18n="contactTitle"></b><small id="whatsapp-sub"></small></span>
+    </a>
+    <div class="info__links">
+      <a id="address-link" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span id="address-text"></span>
+      </a>
+      <a id="instagram-link" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <span id="instagram-text"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 6. CATEGORIAS (abas) – montadas por js/render.js -->
+  <nav class="tabs" id="tabs" aria-label="Categorias">
+    <div class="tabs__scroll" id="tabs-scroll"></div>
+  </nav>
+
+  <!-- 7. LISTA DE PRATOS – montada por js/render.js -->
+  <main class="menu" id="menu"></main>
+
+  <!-- 8. RODAPÉ -->
+  <footer class="footer">
+    <a class="footer__logo" href="#top" data-top>
+      <img class="logo-img" src="images/logo/logo.png" alt="Restaurante Panela Caseira">
+    </a>
+    <a id="footer-address" href="#" target="_blank" rel="noopener"></a>
+    <span data-i18n="since"></span>
+  </footer>
+
+  <!-- Scripts (a ordem importa) -->
+  <!-- configurações e textos -->
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <!-- dados do cardápio: um arquivo por categoria -->
+  <script src="js/data/00-pratos-do-dia.js"></script>
+  <script src="js/data/01-pratos-individuais.js"></script>
+  <script src="js/data/02-pratos-para-dividir.js"></script>
+  <script src="js/data/03-petiscos.js"></script>
+  <script src="js/data/04-pizza-broto.js"></script>
+  <script src="js/data/05-pizza-media.js"></script>
+  <script src="js/data/06-pizza-grande.js"></script>
+  <script src="js/data/07-bebidas.js"></script>
+  <script src="js/data/08-cervejas.js"></script>
+  <script src="js/data/09-drinks-e-vinhos.js"></script>
+  <script src="js/data/10-sobremesas.js"></script>
+  <!-- destaques do carrossel -->
+  <script src="js/highlights.js"></script>
+  <!-- lógica: desenhar a página, interações, cards dos pratos e inicialização -->
+  <script src="js/render.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cards.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

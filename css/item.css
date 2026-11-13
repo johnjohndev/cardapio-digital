@@ -1,0 +1,119 @@
+/* ==========================================================
+   CARD DO PRATO
+   Fechado: linha com nome, preço, descrição e miniatura.
+   Aberto (toque na miniatura): o card cresce com uma transição
+   suave e a foto aparece grande ATRÁS da descrição.
+   ========================================================== */
+
+.list { display: grid; column-gap: 32px; }
+
+.item {
+  --stage: min(58vw, 260px);               /* altura da área onde a foto aparece */
+  --ease: cubic-bezier(.22, .7, .2, 1);    /* movimento suave */
+  position: relative;
+  isolation: isolate;                      /* a foto fica atrás do texto, mas dentro do card */
+  overflow: hidden;
+  margin: 0 -12px;                         /* o card aberto "sai" um pouco da linha */
+  padding: 16px 12px;
+  border-radius: 14px;
+  scroll-margin-top: calc(var(--safe-top) + var(--bar-h) + var(--tabs-h) + 10px);
+  scroll-margin-bottom: 16px;
+  transition: box-shadow .45s var(--ease);
+}
+/* linha que separa um prato do outro (some quando o card abre) */
+.item::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 0;
+  height: 1px; background: var(--line); transition: opacity .3s;
+}
+.item.is-open { box-shadow: 0 10px 28px rgba(0, 0, 0, .3); }
+.item.is-open::after { opacity: 0; }
+
+/* ---------- Foto grande (fica atrás de tudo) ---------- */
+.item__photo, .item__shade { position: absolute; inset: 0; z-index: -1; }
+.item__photo {
+  background: #1a1414; opacity: 0; transform: scale(1.08);
+  transition: opacity .5s var(--ease), transform .8s var(--ease);
+}
+.item__photo img { width: 100%; height: 100%; object-fit: cover; }
+.item.is-open.is-ready .item__photo { opacity: 1; transform: none; }
+
+/* degradê escuro: deixa o texto legível e a foto visível no meio */
+.item__shade {
+  opacity: 0; transition: opacity .5s var(--ease);
+  background: linear-gradient(to bottom,
+    rgba(10, 6, 6, .8) 0%, rgba(10, 6, 6, .12) 36%, rgba(10, 6, 6, .2) 52%, rgba(10, 6, 6, .92) 100%);
+}
+.item.is-open .item__shade { opacity: 1; }
+
+/* foto pequena demais (banners antigos): mostra inteira sobre um fundo desfocado */
+.item.is-lowres .item__photo::before {
+  content: ""; position: absolute; inset: -24px;
+  background: var(--photo) center / cover; filter: blur(22px) brightness(.55);
+}
+.item.is-lowres .item__photo img { position: relative; object-fit: contain; }
+
+/* ---------- Linha do topo: texto + miniatura ---------- */
+.item__row { display: flex; gap: 14px; align-items: flex-start; }
+.item__meta { flex: 1; min-width: 0; }
+.item__title { font: 800 18px/1.25 var(--font-title); }
+.item__price { margin-top: 6px; font: 800 18px var(--font-title); color: var(--red-text); }
+.item__day {
+  display: inline-block; margin: 6px 6px 0 0; padding: 0 8px;
+  border: 1px solid var(--red); border-radius: 4px;
+  color: var(--red-text); font-size: 13px; font-weight: 700;
+}
+.item__extras { display: block; margin-top: 4px; color: var(--red-text); font-size: 14px; font-weight: 700; }
+
+/* miniatura: vira botão de fechar quando o card abre */
+.item__thumb {
+  position: relative; flex: none; width: 112px; height: 112px; padding: 0;
+  border: 0; border-radius: 10px; overflow: hidden; background: var(--line);
+  transition: width .45s var(--ease), height .45s var(--ease), border-radius .45s var(--ease), background .3s;
+}
+.item__thumb img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%;
+  transition: opacity .3s;
+}
+.item__zoom, .item__close {
+  position: absolute; display: flex; align-items: center; justify-content: center;
+  color: #fff; transition: opacity .3s;
+}
+.item__zoom {                              /* ícone no canto: indica que dá para ampliar */
+  right: 6px; bottom: 6px; width: 24px; height: 24px;
+  border-radius: 50%; background: rgba(0, 0, 0, .6);
+}
+.item__zoom svg { width: 14px; height: 14px; }
+.item__close { inset: 0; opacity: 0; }
+.item__close svg { width: 20px; height: 20px; }
+
+.item.is-open .item__thumb { width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 0, 0, .55); }
+.item.is-open .item__thumb img, .item.is-open .item__zoom { opacity: 0; }
+.item.is-open .item__close { opacity: 1; transition-delay: .15s; }
+
+/* ---------- Espaço que cresce e mostra a foto ---------- */
+.item__stage { height: 0; transition: height .55s var(--ease); }
+.item.is-open .item__stage { height: var(--stage); }
+
+/* ---------- Descrição ---------- */
+.item__desc { margin-top: 10px; color: var(--muted); font-size: 15px; }
+
+/* cores do texto sobre a foto */
+.item__title, .item__desc, .item__price, .item__extras, .item__day {
+  transition: color .4s, border-color .4s, text-shadow .4s;
+}
+.item.is-open .item__title { color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .7); }
+.item.is-open .item__desc  { color: #f3ebe8; text-shadow: 0 1px 8px rgba(0, 0, 0, .8); }
+.item.is-open .item__price,
+.item.is-open .item__extras { color: #ffb3b9; text-shadow: 0 1px 8px rgba(0, 0, 0, .7); }
+.item.is-open .item__day { color: #fff; border-color: #ffb3b9; }
+
+@media (min-width: 720px) {
+  .list { grid-template-columns: 1fr 1fr; }
+  .item { --stage: 260px; }
+  .item__thumb { width: 128px; height: 128px; }
+}
+
+/* quem pediu menos animação no celular não vê as transições */
+@media (prefers-reduced-motion: reduce) {
+  .item, .item *, .item::after { transition-duration: .01ms !important; transition-delay: 0s !important; }
+}

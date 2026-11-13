@@ -1,0 +1,40 @@
+/* ==========================================================
+   VARIÁVEIS: cores da logo, fontes e medidas.
+   Para mudar o visual do site inteiro, comece por aqui.
+   ========================================================== */
+:root {
+  /* Cores (tiradas da logo) */
+  --red: #9b1c22;          /* vinho da logo */
+  --red-dark: #7d1519;
+  --red-text: #9b1c22;     /* vinho usado em textos */
+  --ink: #1a1414;          /* preto da panela */
+  --muted: #5b5251;        /* texto secundário */
+  --line: #e6e0de;         /* linhas e bordas finas */
+  --surface: #ffffff;      /* fundo de barras e do site */
+  --field: #f4f1f0;        /* fundo do campo de busca */
+  --logo-bg: #191919;      /* cor de fundo da logo (as telas escuras usam a mesma) */
+
+  /* Medidas */
+  --bar-h: 68px;           /* altura da barra do topo */
+  --tabs-h: 48px;          /* altura da barra de categorias */
+  --max: 980px;            /* largura máxima do conteúdo */
+  --safe-top: env(safe-area-inset-top, 0px);       /* área do "notch" */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Fontes */
+  --font-title: Bitter, Georgia, serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Modo escuro (segue a configuração do celular) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f4edeb;
+    --muted: #bdb1af;
+    --red-text: #ff7f85;
+    --line: #352b2b;
+    --surface: #151010;
+    --field: #241c1c;
+    color-scheme: dark;
+  }
+}

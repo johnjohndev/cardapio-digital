@@ -1,0 +1,42 @@
+/* ==========================================================
+   BASE: reset, tipografia e regras gerais
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* empurra o conteúdo para fora do "notch" dos iPhones */
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 16px/1.55 var(--font-body);
+}
+
+/* faixa que pinta a área do "notch" com a cor da barra */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--safe-top);
+  background: var(--logo-bg);
+  z-index: 40;
+}
+
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+
+/* A logo é transparente (letras rosa e panela creme): sempre sobre fundo escuro */
+.logo-img { background: none; }
+
+/* limita a largura do conteúdo em telas grandes */
+.wrap { max-width: var(--max); margin: 0 auto; }
